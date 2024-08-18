@@ -1,0 +1,2 @@
+D:\Старый я\Скиллбокс\Lesson_7\Lesson_7\obj\Debug\Lesson_7.csproj.AssemblyReference.cache
+D:\Старый я\Скиллбокс\Lesson_7\Lesson_7\obj\Debug\Lesson_7.csproj.CoreCompileInputs.cache
