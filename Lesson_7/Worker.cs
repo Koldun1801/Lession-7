@@ -124,7 +124,7 @@ namespace Lesson_7
         public string ToStringWorker()
         {
             string Result = Id.ToString() + "#" 
-                + dateAdd.ToString("g") + "#" 
+                + dateAdd.ToString("d") + "#" 
                 + fullName + "#" 
                 + age.ToString() + "#" 
                 + lenght.ToString() + "#" 

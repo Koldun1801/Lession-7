@@ -7,7 +7,7 @@ namespace Lesson_7
 {
     class Repository
     {
-
+        //private int lastId = 0;
         private string path = "Repository.csv";
         
         /// <summary>
@@ -17,12 +17,12 @@ namespace Lesson_7
         public Worker[] GetAllWorkers()
         {
             Worker[] workers;
-            string[] allLines = File.ReadAllLines(path);
-            workers = new Worker[allLines.Length];
-            for(int i=0;i<allLines.Length;i++)
-            {
-                workers[i] = StringToWorker(allLines[i]);
-            }
+            
+                string[] allLines = File.ReadAllLines(path);
+                workers = new Worker[allLines.Length];
+                for (int i = 0; i < allLines.Length; i++)
+                    workers[i] = StringToWorker(allLines[i]);
+            //lastId = workers[workers.Length - 1].ID();
             return workers;
         }
 
@@ -64,7 +64,7 @@ namespace Lesson_7
         public void AddWorker(Worker worker)
         {
             worker.ReplaceId(LastId() + 1);
-            File.AppendAllText(path, worker.ToString());
+            File.AppendAllText(path, worker.ToStringWorker()+"\n");
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Lesson_7
         private int LastId()
         {
             Worker[] workers = GetAllWorkers();
-            return workers[workers.Length-1].ID();
+            return workers[workers.Length - 1].ID();
         }
 
         /// <summary>
