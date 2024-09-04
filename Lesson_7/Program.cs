@@ -11,24 +11,38 @@ namespace Lesson6
         static void Main(string[] args)
         {
             ConsoleKeyInfo ski;
-            string pathFile = "DataWorkers.csv";
             
 
-            Console.WriteLine("Нажмите на кнопку \n\t1 — вывести данные на экран; \n\t2 — заполнить данные и добавить новую запись в конец файла.");
+            Console.WriteLine("Нажмите на кнопку " +
+                "\n\t1 — вывести данные на экран; " +
+                "\n\t2 — заполнить данные и добавить новую запись в конец файла;" +
+                "\n\t3 — найти работника по ID;" +
+                "\n\t4 — Удалить работника по ID.");
 
             while (true)
             {
                 ski = Console.ReadKey();
+                
 
                 if (ski.Key == ConsoleKey.D1 || ski.Key == ConsoleKey.NumPad1)
                 {
-                    Exercise_1(pathFile);
+                    Exercise_1();
                     break;
                 }
 
                 if (ski.Key == ConsoleKey.D2 || ski.Key == ConsoleKey.NumPad2)
                 {
-                    Exercise_2(pathFile);
+                    Exercise_2();
+                    break;
+                }
+                if (ski.Key == ConsoleKey.D2 || ski.Key == ConsoleKey.NumPad3)
+                {
+                    Exercise_3();
+                    break;
+                }
+                if (ski.Key == ConsoleKey.D4 || ski.Key == ConsoleKey.NumPad4)
+                {
+                    Exercise_4();
                     break;
                 }
             }
@@ -39,13 +53,13 @@ namespace Lesson6
         /// выводит данные о всех работниках в консоль
         /// </summary>
         /// <param name="path">путь к файлу с таблицей</param>
-        static void Exercise_1(string path)
+        static void Exercise_1()
         {
             if (File.Exists("Repository.csv") == true)
             {
                 Worker[] workers = repository.GetAllWorkers();
 
-                Write(StringOutputFormat("ID#Дата добавления#ФИО#Возраст#Рост#Дата рождения#Место рождения"));
+                Write(StringOutputFormat("\nID#Дата добавления#ФИО#Возраст#Рост#Дата рождения#Место рождения"));
 
                 foreach (Worker worker in workers)
                 {
@@ -63,7 +77,7 @@ namespace Lesson6
         /// метод для добавления сотрудника в таблицу
         /// </summary>
         /// <param name="path">путь к файлу с таблицей</param>
-        static void Exercise_2(string path)
+        static void Exercise_2()
         {
             char key = 'д';
 
@@ -76,6 +90,35 @@ namespace Lesson6
                 key = Console.ReadKey(true).KeyChar;
             }
             while (char.ToLower(key) == 'д');
+        }
+
+        /// <summary>
+        /// Поиск сотрудника по ID
+        /// </summary>
+        static void Exercise_3()
+        {
+            Console.WriteLine("\nвведите ID искомого сотрудника");
+            int id = Convert.ToInt32(Console.ReadLine());
+            Worker worker = repository.GetWorkerById(id);
+            if (worker.ID() == id)
+            {
+                Write(StringOutputFormat("\nID#Дата добавления#ФИО#Возраст#Рост#Дата рождения#Место рождения"));
+                Write(StringOutputFormat(worker.ToStringWorker()));
+            }
+            else
+                Console.WriteLine("Сотрудник не найден");
+
+        }
+
+        /// <summary>
+        /// Удаление работника по ID
+        /// </summary>
+        static void Exercise_4()
+        {
+            Console.WriteLine("\nвведите ID удаляемого сотрудника");
+            int id = Convert.ToInt32(Console.ReadLine());
+            repository.DeleteWorker(id);
+            Console.WriteLine("Сотрудник удалён");
         }
 
         /// <summary>
@@ -162,7 +205,7 @@ namespace Lesson6
             Worker worker;
             DateTime dataAdd = DateTime.Now;
 
-            Console.WriteLine("введите Ф.И.О. сотрудника");
+            Console.WriteLine("\nвведите Ф.И.О. сотрудника");
             string name = Console.ReadLine();
 
             Console.WriteLine("введите возраст сотрудника");

@@ -16,10 +16,12 @@ namespace Lesson_7
         /// <returns>список работников</returns>
         public Worker[] GetAllWorkers()
         {
+            int count = 1;
             Worker[] workers;
-            
-                string[] allLines = File.ReadAllLines(path);
-                workers = new Worker[allLines.Length];
+            string[] allLines;
+                allLines = File.ReadAllLines(path);
+                count = allLines.Length;
+                workers = new Worker[count];
                 for (int i = 0; i < allLines.Length; i++)
                     workers[i] = StringToWorker(allLines[i]);
             //lastId = workers[workers.Length - 1].ID();
@@ -52,7 +54,7 @@ namespace Lesson_7
             for(int i = 0;i<workers.Length;i++)
             {
                 if (workers[i].ID() != id)
-                    allText += workers[i].ToString()+"\n";
+                    allText += workers[i].ToStringWorker()+"\n";
             }
             File.WriteAllText(path, allText);
         }
@@ -99,8 +101,12 @@ namespace Lesson_7
         /// <returns></returns>
         private int LastId()
         {
-            Worker[] workers = GetAllWorkers();
-            return workers[workers.Length - 1].ID();
+            if (File.Exists(path))
+            {
+                Worker[] workers = GetAllWorkers();
+                return workers[workers.Length - 1].ID();
+            }
+            return 0;
         }
 
         /// <summary>
